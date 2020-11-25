@@ -21,6 +21,9 @@ jobs:
           dotnet publish EDRoutePlanner -c release -p:PublishSingleFile=true -p:PublishTrimmed=true --framework=net5.0 --runtime win-x64 -o build
           if ($? -eq $false) { Exit 1 }
 
+      - name: Delete .pdb
+        run: rm build/EDRoutePlanner.pdb
+
       - name: Upload artifacts
         uses: actions/upload-artifact@v2
         with:
