@@ -1,0 +1,22 @@
+name: Builder
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master]
+jobs:
+  publish:
+    runs-on: windows-latest
+
+    steps:
+      - name: Setup .NET Core SDK
+        uses: actions/setup-dotnet@v1.7.2
+
+      - name: Pull repository
+        uses: actions/checkout@v2.3.1
+
+      - name: Publish
+        run: |
+          dotnet build EDRoutePlanner -c release -p:PublishSingleFile=true -p:PublishTrimmed=true --self-contained true --framework=net5.0 --runtime win-x64
+          if ($? -eq $false) { Exit 1 }
