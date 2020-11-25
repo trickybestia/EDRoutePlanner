@@ -20,7 +20,8 @@ namespace EDRoutePlanner
 
                     Console.CursorLeft = 0;
                     Console.CursorTop = Console.WindowHeight - 1;
-                    Console.BackgroundColor = ConsoleColor.Yellow;
+                    Console.BackgroundColor = ConsoleColor.Green;
+                    Console.ForegroundColor = ConsoleColor.Black;
                     Console.Write($"Прогресс: {value}%");
 
                     LoadSettings(settings);
@@ -30,6 +31,7 @@ namespace EDRoutePlanner
 
         private static async Task Main()
         {
+            Console.Title = "Наигламурнейший оптимизатор маршрутов по нейтронкам от TrickyBestia";
             Console.WriteLine("Вас приветствует наигламурнейший оптимизатор маршрутов по нейтронкам от TrickyBestia.");
             Console.Write("Введите начальную систему: ");
             string sourceSystem = Console.ReadLine();
@@ -44,8 +46,10 @@ namespace EDRoutePlanner
             lock (_writeLock)
             {
                 Console.WriteLine("Кратчайший маршрут:");
+                string optimalRouteUrl = $"https://spansh.co.uk/plotter/results/{optimalRoute.Result.Job.ToString().ToUpper()}{new Request(range, optimalRoute.Result.Efficiency, sourceSystem, destinationSystem).ToQuery()}";
                 ConsoleSettings settings = SaveSetting(false);
-                Console.WriteLine($"https://spansh.co.uk/plotter/results/{optimalRoute.Result.Job.ToString().ToUpper()}{new Request(range, optimalRoute.Result.Efficiency, sourceSystem, destinationSystem).ToQuery()}");
+                Console.ForegroundColor = ConsoleColor.Yellow;
+                Console.WriteLine(optimalRouteUrl);
                 LoadSettings(settings);
                 Console.ReadLine();
             }
