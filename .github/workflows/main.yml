@@ -18,7 +18,7 @@ jobs:
 
       - name: Publish
         run: |
-          dotnet build EDRoutePlanner -c release -p:PublishSingleFile=true -p:PublishTrimmed=true --framework=net5.0 --runtime win-x64 -o build
+          dotnet publish EDRoutePlanner -c release -p:PublishSingleFile=true -p:PublishTrimmed=true --framework=net5.0 --runtime win-x64 -o build
           if ($? -eq $false) { Exit 1 }
 
       - name: Upload artifacts
